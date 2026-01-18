@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello</title>
+    <link rel="stylesheet" href="/Cart/style_cart.css">
+</head>
+<body>
+    <header>
+        <h1 id="welcome" class="welcome-text">Carrello</h1>
+        <div class="header-buttons">
+            <a id="Home-button" href="../Home/home.html">🏠 Home</a>
+            <button id="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </header>
+    
+    <div id="products-grid" class="products-grid"></div>
+    <div id="pagination" class="pagination"></div>
+
+    <div id="checkout">
+    <div id="total-cart"></div>
+    <div id="success-error-box"></div>
+
+    <button onclick="checkout()">Procedi al pagamento</button>
+
+    </div>
+    
+
+    <script src="../js/cart.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

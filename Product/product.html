@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Prodotto - Caprima</title>
+    <link rel="stylesheet" href="/Product/style_product.css">
+</head>
+<body>
+    <header>
+        <h1 id="welcome" class="welcome-text"></h1>
+        <div class="header-buttons">
+            <a id="Carrello-button" href="../Cart/cart.html">🛒 Carrello</a>
+            <button id="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="../Home/home.html" class="back-link">← Torna alla home</a>
+        
+        <div class="product-container">
+            <div class="product-image">
+                <div id="product-img"></div>
+            </div>
+            <div class="product-info-section">
+                <h1 id="product-details" class="product-name"></h1>
+                
+                <div class="price-section">
+                    <span id="prezzo" class="product-price"></span>
+                    
+                </div>
+
+                <div class="description-section">
+                    <h2>Descrizione</h2>
+                    <p id="product-description" class="product-description">
+                       
+                    </p>
+                </div>
+
+                <div class="quantity-section">
+                    <label for="quantity">Quantità:</label>
+                    <div class="quantity-control">
+                        <input type="number" id="quantity" value="1" min="1">
+                        
+                    </div>
+                    <button id="add-to-cart-btn" onclick="aggiungi_al_carrello(new URLSearchParams(window.location.search).get('id'),document.getElementById('quantity').value)" class="btn-add-to-cart">
+                            🛍️ Aggiungi al Carrello
+                        </button>
+                </div>
+
+                <div id="success-error-box"></div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/prodotto.js"></script>
+</body>
+</html>

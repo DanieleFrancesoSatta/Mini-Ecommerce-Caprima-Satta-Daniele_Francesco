@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - E-Commerce Caprima</title>
+    <link rel="stylesheet" href="/Home/style_home.css">
+</head>
+<body>
+    <header>
+        <h1 id="welcome" class="welcome-text"></h1>
+        <div class="header-buttons">
+            <a id="Carrello-button" href="../Cart/cart.html">🛒 Carrello</a>
+            <button id="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </header>
+    <div id="search-container"><input type="text" placeholder="Cerca prodotti..." oninput="filtrapertesto(this.value)"></div>
+    <div id="product-list" class="product-list">
+        <div id="settings">
+            <div id="lista-filtri">
+                <div class="filter-wrapper">
+                    <button class="filter-option" onclick="visualizza_filtri_ordine_alfabetico()">Ordine alfabetico</button>
+                    <div id="filtri-ordine-alfabetico" style="display: none;">
+                        <button onclick="visualizza_prodotti('filter=alphabetical=A-Z')">A-Z</button>
+                        <button onclick="visualizza_prodotti('filter=alphabetical=Z-A')">Z-A</button>
+                    </div>
+                </div>
+                
+                <div class="filter-wrapper">
+                    <button class="filter-option" onclick="visualizza_filtri_prezzo()">Ordina per prezzo</button>
+                    <div id="filtri-prezzi" style="display: none;">
+                        <button onclick="visualizza_prodotti('filter=prezzo=ASC')">Prezzo crescente</button>
+                        <button onclick="visualizza_prodotti('filter=prezzo=DESC')">Prezzo decrescente</button>
+                    </div>
+                </div>
+
+                <div class="filter-wrapper">
+                    <button class="filter-option" onclick="visualizza_categorie()">Filtra per categoria</button>
+                    <div id="lista-categorie" style="display: none;">
+
+                    </div>
+                </div>
+                
+                <button class="filter-option" onclick="visualizza_prodotti('filter=reset')">Reset filtri</button>
+            </div>
+        </div>
+
+        <div id="products-grid" class="products-grid"></div>
+        <div id="pagination" class="pagination"></div>
+
+        <div id="success-error-box"></div>
+    </div>
+
+
+    <script src="../js/common.js"></script>
+    <script src="../js/home.js"></script>
+</body>
+</html>
