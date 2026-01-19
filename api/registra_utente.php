@@ -59,16 +59,11 @@ try {
             "id" => $db->lastInsertId()
         ];
         http_response_code(200);
-        session_save_path('/tmp');
-        session_start();
-        $_SESSION['id_utente'] = $user['id'];
-        $_SESSION['nome_utente'] = $user['utente'];
         echo json_encode(["message" => "Registrazione avvenuta con successo.", "user" => $user
     ]);
     exit();
     }
     else {
-        http_response_code(500);
         echo json_encode(["error" => "Errore durante la registrazione. Riprova più tardi."]);
         exit();
     }

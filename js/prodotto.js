@@ -1,36 +1,18 @@
-async function load_user_data() {
-    try {
-        const response = await fetch('../api/get_user_data.php');
-        
-        if (!response.ok) {
-            throw new Error("Errore nel recupero dei dati utente");
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("Errore sessione:", error);
-        return { logged_in: false };
-    }
-}
-
-
-
-window.addEventListener('load', async() => {
-    user_data= await load_user_data();
-    user=user_data.logged_in;
-
+window.addEventListener('load', () => {
+    const user = localStorage.getItem('user');
     visualizza_prodotto();
     if (!user) {
-        window.location.href = '/Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
 });
 
 
 async function aggiungi_al_carrello(id_prodotto,quantita) {
-    user_data= await load_user_data();
-    utente=user_data.utente;
 
+    const utente = localStorage.getItem('user'); 
+    const obj=JSON.parse(utente);
+    const id_utente = obj.id;
+    const nome_utente = obj.utente;
 
 
 try {
@@ -42,6 +24,7 @@ try {
         },
         body: JSON.stringify({
             id_prodotto: id_prodotto,
+            id_utente: id_utente,
             quantita: quantita
         })
     });

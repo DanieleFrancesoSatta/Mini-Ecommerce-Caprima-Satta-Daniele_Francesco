@@ -1,20 +1,3 @@
-async function load_user_data() {
-    try {
-        const response = await fetch('../api/get_user_data.php');
-        
-        if (!response.ok) {
-            throw new Error("Errore nel recupero dei dati utente");
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("Errore sessione:", error);
-        return { logged_in: false };
-    }
-}
-
-
 window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -60,7 +43,7 @@ async function handleLogin(event) {
     
     try {
 
-        const response = await fetch('../api/check_login.php', {
+        const response = await fetch('../api/ceck_login.php', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json'
@@ -93,9 +76,11 @@ async function handleLogin(event) {
         
         if (response.ok) {
             console.log("Login riuscito:", data);
-            window.location.href = '/Home/home.html';
+            localStorage.setItem('user', JSON.stringify(data.user));
+            window.location.href = '../Home/home.html?success=Login effettuato con successo';
 
         } else {
+            
             mostra_messaggio('error', data.error, 1000);
             
         }
@@ -144,8 +129,8 @@ async function handleRegistrati(event) {
         
         if (response.ok) {
             console.log("Registrazione avvenuta con successo:", data);
-            
-            window.location.href = '/Home/home.html?success=Registrazione avvenuta con successo';
+            localStorage.setItem('user', JSON.stringify(data.user));
+            window.location.href = '../Home/home.html?success=Registrazione effettuata';
 
         } else {
             console.log("Errore nella registrazione:", data.error);

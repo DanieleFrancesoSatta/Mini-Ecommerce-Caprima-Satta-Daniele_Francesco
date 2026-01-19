@@ -1,60 +1,68 @@
 async function checkout() {
-    try
-    {
-        const response = await fetch('../api/checkout.php');
-        if (response.ok)
-        {
-            data= await response.json()
-            mostra_messaggio('success',data.success, 250);
-            visualizza_carrello();
-        }
-    }catch(error)
-    {
-        visualizza_carrello();
-        mostra_messaggio('error',error,250);
-    }
-}
-
-async function load_user_data() {
     try {
-        const response = await fetch('../api/get_user_data.php');
         
-        if (!response.ok) {
-            throw new Error("Errore nel recupero dei dati utente");
+        const user_data_string = localStorage.getItem('user');
+        
+        if (!user_data_string) {
+            mostra_messaggio('error', 'Effettua il login per procedere', 1000);
+            return;
         }
 
+
+        const user_data = JSON.parse(user_data_string);
+        const id_utente = user_data.id; 
+
+        const response = await fetch('../api/checkout.php', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id_utente: id_utente})
+        });
+        
         const data = await response.json();
-        return data;
+        
+        if (response.ok) {
+            mostra_messaggio('success', data.success, 250);
+            visualizza_carrello(); 
+        } else {
+            mostra_messaggio('error', data.error || 'Errore durante l\'ordine', 1000);
+        }
     } catch (error) {
-        console.error("Errore sessione:", error);
-        return { logged_in: false };
+        console.error("Errore durante il checkout:", error);
+        mostra_messaggio('error', 'Errore di connessione al server', 1000);
     }
 }
 
-
-
-window.addEventListener('load',async () => {
+window.addEventListener('load', () => {
     visualizza_carrello();
     const successErrorBox = document.getElementById('success-error-box');
     successErrorBox.classList.add('hidden');
-    user_data=await load_user_data();
-    user=user_data.logged_in;
-    
+    const user = localStorage.getItem('user');
     if (!user) {
-        window.location.href = '/Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
     
 });
 
 async function visualizza_carrello() {
 
+    const utente = localStorage.getItem('user'); 
+    const obj=JSON.parse(utente);
+    const id_utente = obj.id;
+    const nome_utente = obj.utente;
+    
     try {
-        const response = await fetch('../api/get_cart.php');
+        const response = await fetch('../api/get_cart.php', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            
+            body: JSON.stringify({id: id_utente})
+        });
         const products = await response.json();
-        if(!response.ok) {
-            throw new Error(products.error);
-        }
-        
+        console.log("Prodotti nel carrello:", products);
         const total_cart_info=document.getElementById('total-cart');
         const pagination = document.getElementById('pagination');
         const checkout_button = document.getElementById('checkout-button');
@@ -129,7 +137,10 @@ function mostraProdottiCarrello(products, pagina) {
 
 async function modifica_quantita(id_prodotto, nuova_quantita) {
     
-     
+    const utente = localStorage.getItem('user'); 
+    const obj=JSON.parse(utente);
+    const id_utente = obj.id;
+    
 
     const response = await fetch('../api/modifica_quantita.php', {
         method: 'POST',
@@ -138,10 +149,10 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
         },
         body: JSON.stringify({
             id_prodotto: id_prodotto,
+            id_utente: id_utente,
             nuova_quantita: nuova_quantita
         })
     });
-
     const data = await response.json();
     if (response.ok) {
         console.log("Quantità modificata:", data);

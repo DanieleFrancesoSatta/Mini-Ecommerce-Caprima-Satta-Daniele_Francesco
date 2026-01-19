@@ -8,7 +8,6 @@ header("Access-Control-Allow-Methods: POST");
 
 require_once __DIR__ . '/../config/connect_database.php';
 
-
 try {
     $database = new Database();
     $db = $database->connect();
@@ -24,12 +23,5 @@ try {
     exit();
 }
 
-$query = "SELECT DISTINCT categoria FROM prodotti GROUP BY categoria";
 
-$stmt = $db->prepare($query);
-$stmt->execute();
-
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-echo json_encode($categories);
 ?>

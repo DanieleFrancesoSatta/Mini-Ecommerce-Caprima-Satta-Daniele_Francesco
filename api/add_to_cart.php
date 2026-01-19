@@ -20,17 +20,16 @@ try {
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (!isset($data->id_prodotto)) {
+if (!isset($data->id_prodotto)|| !isset($data->id_utente)) {
     http_response_code(400);
-    echo json_encode(["error" => "Dati mancanti: id_prodotto"]);
+    echo json_encode(["error" => "Dati mancanti: id_prodotto o id_utente."]);
     exit();
 }
-session_save_path('/tmp');
-session_start();
-$id_utente = $_SESSION['id_utente'];
+
 
 $prodotto_id = $data->id_prodotto;
 
+$id_utente = $data->id_utente; 
 $quantita = isset($data->quantita) ? $data->quantita : 1;
 
 try {

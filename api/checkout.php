@@ -1,4 +1,5 @@
 <?php
+// api/checkout.php
 
 // Silenzia errori HTML per non rompere il JSON
 error_reporting(E_ALL);
@@ -18,14 +19,23 @@ try {
     echo json_encode(["error" => "Errore DB: " . $e->getMessage()]);
     exit();
 }
-session_save_path('/tmp');
-session_start(); 
-$id_utente=$_SESSION['id_utente'];
 
-$query="DELETE FROM carrello WHERE id_utente = :id_utente";
+
+$data = json_decode(file_get_contents("php://input"));
+
+if (!$data || !isset($data->id_utente)) {
+    http_response_code(400);
+    echo json_encode(["error" => "Errore nel parsing dei dati o id_utente mancante."]);
+    exit();
+}
+
+$id_utente = $data->id_utente;
+
+$query = "DELETE FROM carrello WHERE id_utente = :id_utente";
 $stmt = $db->prepare($query);
 $stmt->bindParam(':id_utente', $id_utente);
-try{
+
+try {
     if ($stmt->execute()) {
         http_response_code(200);
         echo json_encode(["success" => "Ordine Effettuato"]);
@@ -33,10 +43,8 @@ try{
         http_response_code(500);
         echo json_encode(["error" => "Errore durante l'ordine."]);
     }
-}catch(error)
-{
+} catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(["error" => "Errore: $error"]);
+    echo json_encode(["error" => "Errore del server: " . $e->getMessage()]);
 }
-
 ?>
