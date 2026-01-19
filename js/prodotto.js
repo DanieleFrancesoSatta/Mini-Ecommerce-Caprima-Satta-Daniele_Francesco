@@ -22,7 +22,7 @@ window.addEventListener('load', async() => {
 
     visualizza_prodotto();
     if (!user) {
-        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        window.location.href = '/Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
 });
 

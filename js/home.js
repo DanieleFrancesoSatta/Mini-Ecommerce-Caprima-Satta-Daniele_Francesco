@@ -43,7 +43,7 @@ window.addEventListener('load', async () => {
             }
         } else {
            
-            window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+            window.location.href = '/Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
         }
     } catch (error) {
         console.error("Errore durante il caricamento dati utente:", error);

@@ -41,7 +41,7 @@ window.addEventListener('load',async () => {
     user=user_data.logged_in;
     
     if (!user) {
-        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        window.location.href = '/Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
     
 });
