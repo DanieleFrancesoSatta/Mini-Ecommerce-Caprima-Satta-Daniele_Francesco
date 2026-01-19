@@ -1,13 +1,45 @@
 async function checkout() {
-
-    mostra_messaggio('error','Funzionalità di checkout non ancora implementata.', 1000);
+    try
+    {
+        const response = await fetch('../api/checkout.php');
+        if (response.ok)
+        {
+            data= await response.json()
+            mostra_messaggio('success',data.success, 250);
+            visualizza_carrello();
+        }
+    }catch(error)
+    {
+        visualizza_carrello();
+        mostra_messaggio('error',error,250);
+    }
 }
 
-window.addEventListener('load', () => {
+async function load_user_data() {
+    try {
+        const response = await fetch('../api/get_user_data.php');
+        
+        if (!response.ok) {
+            throw new Error("Errore nel recupero dei dati utente");
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Errore sessione:", error);
+        return { logged_in: false };
+    }
+}
+
+
+
+window.addEventListener('load',async () => {
     visualizza_carrello();
     const successErrorBox = document.getElementById('success-error-box');
     successErrorBox.classList.add('hidden');
-    const user = localStorage.getItem('user');
+    user_data=await load_user_data();
+    user=user_data.logged_in;
+    
     if (!user) {
         window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
@@ -16,22 +48,13 @@ window.addEventListener('load', () => {
 
 async function visualizza_carrello() {
 
-    const utente = localStorage.getItem('user'); 
-    const obj=JSON.parse(utente);
-    const id_utente = obj.id;
-    const nome_utente = obj.utente;
-    
     try {
-        const response = await fetch('../api/get_cart.php', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            
-            body: JSON.stringify({id: id_utente})
-        });
+        const response = await fetch('../api/get_cart.php');
         const products = await response.json();
-        console.log("Prodotti nel carrello:", products);
+        if(!response.ok) {
+            throw new Error(products.error);
+        }
+        
         const total_cart_info=document.getElementById('total-cart');
         const pagination = document.getElementById('pagination');
         const checkout_button = document.getElementById('checkout-button');
@@ -105,11 +128,8 @@ function mostraProdottiCarrello(products, pagina) {
 
 
 async function modifica_quantita(id_prodotto, nuova_quantita) {
-    visualizza_carrello();
-    const utente = localStorage.getItem('user'); 
-    const obj=JSON.parse(utente);
-    const id_utente = obj.id;
     
+     
 
     const response = await fetch('../api/modifica_quantita.php', {
         method: 'POST',
@@ -118,10 +138,10 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
         },
         body: JSON.stringify({
             id_prodotto: id_prodotto,
-            id_utente: id_utente,
             nuova_quantita: nuova_quantita
         })
     });
+
     const data = await response.json();
     if (response.ok) {
         console.log("Quantità modificata:", data);
@@ -129,6 +149,7 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
         visualizza_carrello();
         mostra_messaggio('success','Quantità modificata con successo!', 1000);
     } else {
+        visualizza_carrello();
         console.error("Errore nella modifica della quantità:", data);
         mostra_messaggio('error','Errore nella modifica della quantità: ' + data.message, 1000);
         

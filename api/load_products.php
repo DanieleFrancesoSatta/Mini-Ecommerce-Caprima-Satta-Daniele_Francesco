@@ -59,6 +59,7 @@ elseif (str_starts_with($filter, "text")) {
 try {
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    http_response_code(200);
     echo json_encode($products);
     exit();
 } catch (Exception $e) {

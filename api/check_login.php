@@ -54,17 +54,20 @@ try {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verifica Password
+    
     if ($user && password_verify($password, $user['password'])) {
         
         unset($user['password']);
 
-        // Risposta SUCCESSO (200 OK)
+        
+        session_start();
+        $_SESSION['id_utente'] = $user['id'];
+        $_SESSION['nome_utente'] = $user['utente'];
+        
         http_response_code(200);
         echo json_encode([
             "success" => "Login effettuato con successo",
-            "user" => $user,
-            "id_utente" => $user['id']
+            "user" => $user
         ]);
         exit();
 

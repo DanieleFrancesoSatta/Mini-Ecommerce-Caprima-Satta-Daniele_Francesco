@@ -1,17 +1,55 @@
+async function load_user_data() {
+    try {
+        const response = await fetch('../api/get_user_data.php');
+        
+        if (!response.ok) {
+            throw new Error("Errore nel recupero dei dati utente");
+        }
 
-window.addEventListener('load', () => {
-    visualizza_prodotti("");
-    const user = localStorage.getItem('user');
-    
-    if (user) {
-        const userData = JSON.parse(user);
-        const welcomeElement = document.getElementById('welcome');
-        welcomeElement.textContent = `Benvenuto ${userData.utente}`;
-    }else{
-        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Errore sessione:", error);
+        return { logged_in: false };
     }
-});
+}
 
+window.addEventListener('load', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.has('success')) {
+        const messaggio = urlParams.get('success');
+        if (messaggio) {
+            mostra_messaggio('success', messaggio, 1000);
+        }
+    } 
+    else if (urlParams.has('error')) {
+        const messaggio = urlParams.get('error');
+        if (messaggio) {
+            mostra_messaggio('error', messaggio, 1000);
+        }
+    }
+    try {
+        
+        const user_data = await load_user_data(); 
+        
+        //console.log("User data:", user_data);
+
+        if (user_data.logged_in) {
+            
+            const welcomeElement = document.getElementById('welcome');
+            if (welcomeElement) {
+                welcomeElement.textContent = `Benvenuto ${user_data.utente}`;
+            }
+        } else {
+           
+            window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+        }
+    } catch (error) {
+        console.error("Errore durante il caricamento dati utente:", error);
+    }
+    visualizza_prodotti("");
+});
 
 
 
@@ -174,7 +212,15 @@ async function filtrapertesto(testo) {
 
 
 async function aggiungi_al_carrello(productId) {
-    utente=JSON.parse(localStorage.getItem('user'));
+
+    const user_data= await load_user_data();
+
+    if(!user_data.logged_in) {
+        mostra_messaggio('error','Devi effettuare il login per aggiungere prodotti al carrello.', 250);
+        return;
+    }
+    const utente=user_data.utente;
+
 
     try {
         const response = await fetch('../api/add_to_cart.php', {
@@ -182,7 +228,7 @@ async function aggiungi_al_carrello(productId) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id_prodotto: productId, id_utente: utente.id })
+            body: JSON.stringify({ id_prodotto: productId})
         });
         const data = await response.json();
         if (response.ok) {

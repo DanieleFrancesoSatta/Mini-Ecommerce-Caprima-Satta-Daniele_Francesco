@@ -30,6 +30,6 @@ $stmt = $db->prepare($query);
 $stmt->execute();
 
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+http_response_code(200);
 echo json_encode($categories);
 ?>

@@ -20,12 +20,13 @@ try {
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (!isset($data->id_utente) || !isset($data->id_prodotto) || !isset($data->nuova_quantita)) {
+if (!isset($data->id_prodotto) || !isset($data->nuova_quantita)) {
     http_response_code(400);
     echo json_encode(["error" => "Dati incompleti."]);
     exit();
 }
-$id_utente = $data->id_utente;
+session_start();
+$id_utente = $_SESSION['id_utente'];
 $id_prodotto = $data->id_prodotto;
 $nuova_quantita = $data->nuova_quantita;
 
@@ -45,6 +46,7 @@ if ($nuova_quantita < 1) {
 try {
     
     if ($stmt->execute()) {
+        http_response_code(200);
         echo json_encode(["success" => "Quantità aggiornata con successo."]);
     } else {
         http_response_code(500);

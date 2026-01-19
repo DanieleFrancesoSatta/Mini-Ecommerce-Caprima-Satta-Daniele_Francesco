@@ -18,15 +18,17 @@ try {
     exit();
 }
 
-$data = json_decode(file_get_contents("php://input"));
+session_start(); 
 
-if (!isset($data->id)) {
-    http_response_code(400);
-    echo json_encode(["error" => "Dato mancante:id_utente."]);
+
+if (!isset($_SESSION['id_utente'])) {
+    http_response_code(401);
+    echo json_encode(["error" => "Non autorizzato"]);
     exit();
 }
 
-$id_utente = $data->id;
+$id_utente = $_SESSION['id_utente'];
+
 try{
     $query="SELECT c.id_prodotto, p.nome, p.prezzo, c.quantita, (p.prezzo * c.quantita) AS totale_prodotto 
             FROM carrello c 
@@ -42,6 +44,8 @@ try{
         "items" => $cart_items,
         "total" => $cart_total
     ];
+
+    http_response_code(200);
     echo json_encode($cart);
 }catch (Exception $e) {
     http_response_code(500);
