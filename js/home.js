@@ -1,16 +1,13 @@
-const user = localStorage.getItem('user');
-const id_utente = localStorage.getItem('id_utente');
-if (user) {
-    const userData = JSON.parse(user);
-    const welcomeElement = document.getElementById('welcome');
-    welcomeElement.textContent = `Benvenuto ${userData.utente}`;
-}else {
-    window.location.href = '../Login/login.html';
-}
 
 window.addEventListener('load', () => {
     visualizza_prodotti("");
-    if (!user) {
+    const user = localStorage.getItem('user');
+    
+    if (user) {
+        const userData = JSON.parse(user);
+        const welcomeElement = document.getElementById('welcome');
+        welcomeElement.textContent = `Benvenuto ${userData.utente}`;
+    }else{
         window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
 });
@@ -57,7 +54,7 @@ async function visualizza_prodotti(filter) {
 }
 
 function mostraPaginaProdotti(products, pagina) {
-    const prodottiPerPagina =12;
+    const prodottiPerPagina = 10;
     const totalePagine = Math.ceil(products.length / prodottiPerPagina);
     const inizio = (pagina - 1) * prodottiPerPagina;
     const fine = inizio + prodottiPerPagina;
@@ -190,15 +187,15 @@ async function aggiungi_al_carrello(productId) {
         const data = await response.json();
         if (response.ok) {
             console.log("Prodotto aggiunto al carrello:", data);
-            mostra_messaggio('success',"Prodotto aggiunto al carrello!", 2000);
+            mostra_messaggio('success',"Prodotto aggiunto al carrello!", 250);
             
         } else {
             console.error('Errore nell\'aggiunta al carrello: ' + data.error);
-            mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.error, 2000);
+            mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.error, 250);
         }
     } catch (error) {
         console.error("Errore carrello:", error);
-        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 2000);
+        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 250);
     }
 }
 

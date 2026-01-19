@@ -31,15 +31,15 @@ try {
     const data = await response.json();
     if (response.ok) {
         console.log("Prodotto aggiunto al carrello:", data);
-        mostra_messaggio('success',"Prodotto aggiunto al carrello!", 2000);
+        mostra_messaggio('success',"Prodotto aggiunto al carrello!", 1000);
     } else {
         console.error("Errore nell'aggiunta al carrello:", data);
-        mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.message, 2000);
+        mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.message, 1000);
     }
     }
     catch (error) {
         console.error("Errore carrello:", error);
-        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 2000);
+        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 1000);
     }
 }
 
@@ -65,7 +65,7 @@ async function visualizza_prodotto() {
 
     } catch (error) {
         console.error("Errore nel caricamento del prodotto:", error);
-        mostra_messaggio('error','Errore nel caricamento del prodotto.', 2000);
+        mostra_messaggio('error','Errore nel caricamento del prodotto.', 1000);
     }
 }
 

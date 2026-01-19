@@ -1,10 +1,11 @@
-/* Stile di base per il corpo e l'html */
+
 body, html {
     height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #3755df 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #768be8 0%, #5ac4d0 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,7 +71,7 @@ body, html {
 }
 
 
-/* Stile per gli input del modulo di accesso */
+
 .login-form > input {
     background: white;
     border: 2px solid #e0e0e0;
@@ -91,7 +92,7 @@ body, html {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Stile per il menu a tendina del modulo di accesso */
+
 .login-form select {
     background: white;
     border: 2px solid #e0e0e0;

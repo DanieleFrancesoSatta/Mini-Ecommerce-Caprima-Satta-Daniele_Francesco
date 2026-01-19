@@ -32,14 +32,21 @@ async function visualizza_carrello() {
         });
         const products = await response.json();
         console.log("Prodotti nel carrello:", products);
+        const total_cart_info=document.getElementById('total-cart');
+        const pagination = document.getElementById('pagination');
+        const checkout_button = document.getElementById('checkout-button');
         if (products.items.length === 0) {
-            document.getElementById('products-grid').innerHTML = '<p>Il carrello è vuoto.</p>';
+            document.getElementById('products-grid').classList.add('hidden');
+            total_cart_info.classList.add('hidden');
+            document.getElementById('empty-cart-message-box').innerHTML = '<p class="empty-cart">Il carrello è vuoto.</p>';
+            pagination.classList.add('hidden');
+            checkout_button.classList.add('hidden');
             return;
         }
         const total_cart=products.total;
         console.log("Totale carrello:", total_cart);
-        const total_cart_info=document.getElementById('total-cart');
-        total_cart_info.innerText="Totale carrello: €"+total_cart;
+        
+        total_cart_info.innerText="Totale carrello: €"+Number(total_cart).toFixed(2);
         mostraProdottiCarrello(products.items, 1);
     } catch (error) {
         console.error("Errore nel caricamento dei prodotti:", error);
@@ -49,8 +56,7 @@ async function visualizza_carrello() {
 }
 
 function mostraProdottiCarrello(products, pagina) {
-
-    const prodottiPerPagina =7;
+    const prodottiPerPagina = 7;
     const totalePagine = Math.ceil(products.length / prodottiPerPagina);
     const inizio = (pagina - 1) * prodottiPerPagina;
     const fine = inizio + prodottiPerPagina;
@@ -76,14 +82,15 @@ function mostraProdottiCarrello(products, pagina) {
                     <button onclick="modifica_quantita(${product.id_prodotto}, ${product.quantita + 1})">➕</button>
                     <button onclick="modifica_quantita(${product.id_prodotto}, 0)">🗑️</button>
                 </p>
-                <p class="product-total">Totale: €${product.totale_prodotto}</p>
+                <p class="product-total">Totale: €${Number(product.totale_prodotto).toFixed(2)}</p>
             </div>
         
         `;
+        
         grid.appendChild(productCard);
     });
 
-    
+
     const paginationDiv = document.getElementById('pagination');
     paginationDiv.innerHTML = '';
     
@@ -118,13 +125,12 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
     const data = await response.json();
     if (response.ok) {
         console.log("Quantità modificata:", data);
-        const success_box=document.getElementById('success-error-box');
         
         visualizza_carrello();
-        mostra_messaggio('success','Quantità modificata con successo!', 2000);
+        mostra_messaggio('success','Quantità modificata con successo!', 1000);
     } else {
         console.error("Errore nella modifica della quantità:", data);
-        mostra_messaggio('error','Errore nella modifica della quantità: ' + data.message, 2000);
+        mostra_messaggio('error','Errore nella modifica della quantità: ' + data.message, 1000);
         
     }
 }

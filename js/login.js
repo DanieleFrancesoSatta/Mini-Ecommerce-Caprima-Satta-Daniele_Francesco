@@ -4,13 +4,13 @@ window.addEventListener('load', () => {
     if (urlParams.has('success')) {
         const messaggio = urlParams.get('success');
         if (messaggio) {
-            mostra_messaggio('success', messaggio, 2000);
+            mostra_messaggio('success', messaggio, 1000);
         }
     } 
     else if (urlParams.has('error')) {
         const messaggio = urlParams.get('error');
         if (messaggio) {
-            mostra_messaggio('error', messaggio, 2000);
+            mostra_messaggio('error', messaggio, 1000);
         }
     }
 });
@@ -59,7 +59,7 @@ async function handleLogin(event) {
         
         if (!responseText) {
             console.error("Empty response from server");
-            mostra_messaggio('error', 'Il server non ha risposto. Riprova.', 2000);
+            mostra_messaggio('error', 'Il server non ha risposto. Riprova.', 1000);
             return;
         }
         
@@ -69,7 +69,7 @@ async function handleLogin(event) {
         } catch (e) {
             console.error("JSON parse error:", e);
             console.error("Invalid response:", responseText);
-            mostra_messaggio('error', data.error, 2000);
+            mostra_messaggio('error', data.error, 1000);
             return;
         }
 
@@ -81,14 +81,14 @@ async function handleLogin(event) {
 
         } else {
             
-            mostra_messaggio('error', data.error, 2000);
+            mostra_messaggio('error', data.error, 1000);
             
         }
 
     } catch (error) {
         
         console.error("Errore Fetch:", error);
-        mostra_messaggio('error', error, 2000);
+        mostra_messaggio('error', error, 1000);
         
     }
 }
@@ -99,7 +99,7 @@ async function handleRegistrati(event) {
     const password = document.getElementById('registrati-password').value;
     const passwordConfirm = document.getElementById('registrati-password-confirm').value;
     if (password !== passwordConfirm) {
-        mostra_messaggio('error', 'Le password non corrispondono.', 2000);
+        mostra_messaggio('error', 'Le password non corrispondono.', 1000);
         return;
     }
     try {
@@ -122,7 +122,7 @@ async function handleRegistrati(event) {
         try {
             data = JSON.parse(responseText);
         } catch (e) {
-            mostra_messaggio('error','Risposta non valida dal server. Riprova più tardi.',2000);
+            mostra_messaggio('error','Risposta non valida dal server. Riprova più tardi.',1000);
             return;
         }
 
@@ -134,14 +134,14 @@ async function handleRegistrati(event) {
 
         } else {
             console.log("Errore nella registrazione:", data.error);
-            mostra_messaggio('error', data.error, 2000);
+            mostra_messaggio('error', data.error, 1000);
             
         }
 
     } catch (error) {
         
         console.error("Errore Fetch:", error);
-        mostra_messaggio('error', error, 2000);
+        mostra_messaggio('error', error, 1000);
         
     }
 }
