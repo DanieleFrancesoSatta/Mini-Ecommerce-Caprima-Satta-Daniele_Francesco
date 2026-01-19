@@ -23,7 +23,9 @@ try {
     exit();
 }
 
+//Prelevo il tipo di filtro dall'URL
 $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+
 
 if ($filter== "reset" || $filter== null) {
     $query = "SELECT * FROM prodotti";
@@ -49,16 +51,13 @@ elseif (str_starts_with($filter, "text")) {
     $filter = explode("=", $filter)[1];
     $query = "SELECT * FROM prodotti ORDER BY prezzo $filter";
     $stmt = $db->prepare($query);
-} else {
-    $query = "SELECT * FROM prodotti ORDER BY nome";
-    $stmt = $db->prepare($query);
 }
-
 
 
 try {
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    http_response_code(200);
     echo json_encode($products);
     exit();
 } catch (Exception $e) {

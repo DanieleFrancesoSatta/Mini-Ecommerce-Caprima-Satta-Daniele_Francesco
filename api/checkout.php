@@ -31,6 +31,7 @@ if (!$data || !isset($data->id_utente)) {
 
 $id_utente = $data->id_utente;
 
+//elimino tutti i prodotti nel carrello dell'utente
 $query = "DELETE FROM carrello WHERE id_utente = :id_utente";
 $stmt = $db->prepare($query);
 $stmt->bindParam(':id_utente', $id_utente);

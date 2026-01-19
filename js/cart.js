@@ -35,10 +35,13 @@ async function checkout() {
 }
 
 window.addEventListener('load', () => {
+    //Qaundo viene caricata la pagina vien:
     visualizza_carrello();
+
     const successErrorBox = document.getElementById('success-error-box');
     successErrorBox.classList.add('hidden');
     const user = localStorage.getItem('user');
+    //Se non c'è nessun utente loggato:
     if (!user) {
         window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
     }
@@ -53,6 +56,7 @@ async function visualizza_carrello() {
     const nome_utente = obj.utente;
     
     try {
+        //Effettuo la richiesta
         const response = await fetch('../api/get_cart.php', {
             method: 'POST',
             headers: { 
@@ -61,12 +65,15 @@ async function visualizza_carrello() {
             
             body: JSON.stringify({id: id_utente})
         });
-        const products = await response.json();
+
+        const products = await response.json(); //Converto in json
         console.log("Prodotti nel carrello:", products);
+
         const total_cart_info=document.getElementById('total-cart');
         const pagination = document.getElementById('pagination');
         const checkout_button = document.getElementById('checkout-button');
-        if (products.items.length === 0) {
+
+        if (products.items.length === 0) { //Se non ci son prodotti nel carrello nascondo:
             document.getElementById('products-grid').classList.add('hidden');
             total_cart_info.classList.add('hidden');
             document.getElementById('empty-cart-message-box').innerHTML = '<p class="empty-cart">Il carrello è vuoto.</p>';
@@ -74,6 +81,7 @@ async function visualizza_carrello() {
             checkout_button.classList.add('hidden');
             return;
         }
+
         const total_cart=products.total;
         console.log("Totale carrello:", total_cart);
         
@@ -87,11 +95,13 @@ async function visualizza_carrello() {
 }
 
 function mostraProdottiCarrello(products, pagina) {
+
     const prodottiPerPagina = 7;
     const totalePagine = Math.ceil(products.length / prodottiPerPagina);
+
     const inizio = (pagina - 1) * prodottiPerPagina;
     const fine = inizio + prodottiPerPagina;
-    const prodottiPagina = products.slice(inizio, fine);
+    const prodottiPagina = products.slice(inizio, fine);//Estraggo i prodotti dall'indice inizio a indice fine
 
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
@@ -99,7 +109,7 @@ function mostraProdottiCarrello(products, pagina) {
     prodottiPagina.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
-        productCard.innerHTML = `<a href="../Product/product.html?id=${product.id_prodotto}">
+        productCard.innerHTML = `<a href="../Product/product.html?id=${product.id_prodotto}"> 
             <div class="product-image">
                 <img src="https://placehold.co/200x200?text=${encodeURIComponent(product.nome)}" alt="${product.nome}">
             </div>
@@ -124,7 +134,7 @@ function mostraProdottiCarrello(products, pagina) {
 
     const paginationDiv = document.getElementById('pagination');
     paginationDiv.innerHTML = '';
-    
+    //pulsanti per muoversi nella paginazione
     for (let i = 1; i <= totalePagine; i++) {
         const btn = document.createElement('button');
         btn.className = 'pagination-btn' + (i === pagina ? ' active' : '');

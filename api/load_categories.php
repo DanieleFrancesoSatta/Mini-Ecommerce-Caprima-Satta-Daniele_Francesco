@@ -23,13 +23,22 @@ try {
     echo json_encode(["error" => "Errore di connessione: " . $e->getMessage()]);
     exit();
 }
-
+//Prelevo le categorie presenti 
 $query = "SELECT DISTINCT categoria FROM prodotti GROUP BY categoria";
+try{
 
-$stmt = $db->prepare($query);
-$stmt->execute();
+    $stmt = $db->prepare($query);
+    $stmt->execute();
 
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($categories);
+    http_response_code(200);
+    echo json_encode($categories);
+}catch(Exception $e)
+{
+    http_response_code(500);
+    echo json_encode(["error" => "Errore: " . $e->getMessage()]);
+    exit();
+}
+
 ?>

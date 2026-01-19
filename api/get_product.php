@@ -23,13 +23,14 @@ try {
     echo json_encode(["error" => "Errore di connessione: " . $e->getMessage()]);
     exit();
 }
-
+//Prelevo l'id del prodotto dall'URL
 $id_prodotto = isset($_GET['id']) ? $_GET['id'] : null;
 if (!$id_prodotto) {
     http_response_code(400);
     echo json_encode(["error" => "ID prodotto mancante."]);
     exit();
 }
+
 $query = "SELECT * FROM prodotti WHERE id = :id_prodotto LIMIT 1";
 $stmt = $db->prepare($query);
 $id_prodotto = htmlspecialchars(strip_tags($id_prodotto));

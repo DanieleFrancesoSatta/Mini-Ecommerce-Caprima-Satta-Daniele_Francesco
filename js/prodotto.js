@@ -12,7 +12,6 @@ async function aggiungi_al_carrello(id_prodotto,quantita) {
     const utente = localStorage.getItem('user'); 
     const obj=JSON.parse(utente);
     const id_utente = obj.id;
-    const nome_utente = obj.utente;
 
 
 try {
@@ -48,10 +47,11 @@ async function visualizza_prodotto() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
 
-    // Controllo di sicurezza: se non c'è l'ID, non procedere
+    // Controllo se non c'è l'ID, non procedere
     if (!productId) return;
 
     try {
+        
         const response = await fetch('../api/get_product.php?id=' + encodeURIComponent(productId));
         const product = await response.json();
 

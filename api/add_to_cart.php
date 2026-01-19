@@ -18,6 +18,7 @@ try {
     exit();
 }
 
+
 $data = json_decode(file_get_contents("php://input"));
 
 if (!isset($data->id_prodotto)|| !isset($data->id_utente)) {
@@ -26,9 +27,7 @@ if (!isset($data->id_prodotto)|| !isset($data->id_utente)) {
     exit();
 }
 
-
 $prodotto_id = $data->id_prodotto;
-
 $id_utente = $data->id_utente; 
 $quantita = isset($data->quantita) ? $data->quantita : 1;
 
@@ -40,7 +39,7 @@ try {
     $stmt->bindParam(":uid", $id_utente);
     $stmt->execute();
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    //se c'è già lo stesso prodotto nel carrello incermenti la quantità altrimenti lo aggiungo
     if ($item) {
         $query = "UPDATE carrello SET quantita = quantita + :qty WHERE id_prodotto = :pid AND id_utente = :uid";
         $stmt = $db->prepare($query);

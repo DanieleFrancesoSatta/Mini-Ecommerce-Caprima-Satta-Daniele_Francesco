@@ -36,6 +36,7 @@ async function overlay_form(event){
 
 
 async function handleLogin(event) {
+
     event.preventDefault();
     const utente = document.getElementById('login-utente').value;
     const password = document.getElementById('login-password').value;
@@ -43,7 +44,7 @@ async function handleLogin(event) {
     
     try {
 
-        const response = await fetch('../api/ceck_login.php', {
+        const response = await fetch('../api/check_login.php', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json'
@@ -65,7 +66,7 @@ async function handleLogin(event) {
         
         let data;
         try {
-            data = JSON.parse(responseText);
+            data = JSON.parse(responseText); //Converto in oggetto js
         } catch (e) {
             console.error("JSON parse error:", e);
             console.error("Invalid response:", responseText);
@@ -76,7 +77,7 @@ async function handleLogin(event) {
         
         if (response.ok) {
             console.log("Login riuscito:", data);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('user', JSON.stringify(data.user));//Salvo i dati nel localStorage
             window.location.href = '../Home/home.html?success=Login effettuato con successo';
 
         } else {
@@ -98,6 +99,7 @@ async function handleRegistrati(event) {
     const utente = document.getElementById('registrati-utente').value;
     const password = document.getElementById('registrati-password').value;
     const passwordConfirm = document.getElementById('registrati-password-confirm').value;
+    
     if (password !== passwordConfirm) {
         mostra_messaggio('error', 'Le password non corrispondono.', 1000);
         return;

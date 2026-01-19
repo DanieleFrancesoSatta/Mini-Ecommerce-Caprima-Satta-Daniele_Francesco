@@ -2,6 +2,7 @@
 window.addEventListener('load', () => {
     visualizza_prodotti("");
     const user = localStorage.getItem('user');
+    
     const urlParams = new URLSearchParams(window.location.search);
 
     if (urlParams.has('success')) {

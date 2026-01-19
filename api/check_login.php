@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: POST");
 
 require_once __DIR__ . '/../config/connect_database.php';
 
-
+//Connettiamo al Database
 try {
     $database = new Database();
     $db = $database->connect();
@@ -32,8 +32,9 @@ if (!$data) {
     exit();
 }
 
+$utente = isset($data->utente) ? $data->utente : null; 
 $password = isset($data->password) ? $data->password : null;
-$utente = isset($data->utente) ? $data->id_utente : null;
+
 
 if (!$utente || !$password) {
     http_response_code(400); 
@@ -53,17 +54,17 @@ try {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    
+    // Verifica Password
     if ($user && password_verify($password, $user['password'])) {
         
         unset($user['password']);
 
-        localStorage.setItem('user_data', JSON.stringify($user));
         
         http_response_code(200);
         echo json_encode([
             "success" => "Login effettuato con successo",
-            "user" => $user
+            "user" => $user,
+            "id_utente" => $user['id']
         ]);
         exit();
 

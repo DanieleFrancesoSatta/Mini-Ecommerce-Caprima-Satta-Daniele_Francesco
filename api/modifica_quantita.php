@@ -25,6 +25,7 @@ if (!isset($data->id_utente) || !isset($data->id_prodotto) || !isset($data->nuov
     echo json_encode(["error" => "Dati incompleti."]);
     exit();
 }
+
 $id_utente = $data->id_utente;
 $id_prodotto = $data->id_prodotto;
 $nuova_quantita = $data->nuova_quantita;
@@ -45,6 +46,7 @@ if ($nuova_quantita < 1) {
 try {
     
     if ($stmt->execute()) {
+        http_response_code(200);
         echo json_encode(["success" => "Quantità aggiornata con successo."]);
     } else {
         http_response_code(500);
