@@ -7,11 +7,13 @@
 
     
     if (isset($_COOKIE['utente'])) {
-
         setcookie('utente', "", time() - 3600, "/");
+        header('Location: /Login/login.html?success='. urlencode('ci son cookies'));
+    }else{
+        header('Location: /Login/login.html?success='. urlencode('Logout effettuato con successo'));
     }
 
 
-    header('Location: /Login/login.html?success='. urlencode('Logout effettuato con successo'));
+    
     exit();
 ?>
