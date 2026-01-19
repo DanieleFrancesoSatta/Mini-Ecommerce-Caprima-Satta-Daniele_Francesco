@@ -7,6 +7,10 @@ window.addEventListener('load', () => {
     visualizza_carrello();
     const successErrorBox = document.getElementById('success-error-box');
     successErrorBox.classList.add('hidden');
+    const user = localStorage.getItem('user');
+    if (!user) {
+        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+    }
     
 });
 

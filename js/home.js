@@ -10,6 +10,9 @@ if (user) {
 
 window.addEventListener('load', () => {
     visualizza_prodotti("");
+    if (!user) {
+        window.location.href = '../Login/login.html?error=' + encodeURIComponent('Devi effettuare il login per accedere a questa pagina.');
+    }
 });
 
 
