@@ -1,6 +1,6 @@
 async function checkout() {
 
-    alert("Non ancora disponibile!");
+    mostra_messaggio('error','Funzionalità di checkout non ancora implementata.', 1000);
 }
 
 window.addEventListener('load', () => {
@@ -46,7 +46,7 @@ async function visualizza_carrello() {
 
 function mostraProdottiCarrello(products, pagina) {
 
-    const prodottiPerPagina =12;
+    const prodottiPerPagina =7;
     const totalePagine = Math.ceil(products.length / prodottiPerPagina);
     const inizio = (pagina - 1) * prodottiPerPagina;
     const fine = inizio + prodottiPerPagina;
@@ -87,7 +87,7 @@ function mostraProdottiCarrello(products, pagina) {
         const btn = document.createElement('button');
         btn.className = 'pagination-btn' + (i === pagina ? ' active' : '');
         btn.textContent = i;
-        btn.onclick = () => mostraPaginaProdotti(products, i);
+        btn.onclick = () => mostraProdottiCarrello(products, i);
         paginationDiv.appendChild(btn);
     }
 }
@@ -117,10 +117,10 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
         const success_box=document.getElementById('success-error-box');
         
         visualizza_carrello();
-        mostra_messaggio('success','Quantità modificata con successo!', 3000);
+        mostra_messaggio('success','Quantità modificata con successo!', 2000);
     } else {
         console.error("Errore nella modifica della quantità:", data);
-        mostra_messaggio('error','Errore nella modifica della quantità: ' + data.message, 3000);
+        mostra_messaggio('error','Errore nella modifica della quantità: ' + data.message, 2000);
         
     }
 }
@@ -128,7 +128,14 @@ async function modifica_quantita(id_prodotto, nuova_quantita) {
 
 async function mostra_messaggio(tipo,messaggio, millisecondi) {
     const successErrorBox = document.getElementById('success-error-box');
-    successErrorBox.innerHTML = `<p style='color:${tipo === 'success' ? 'green' : 'red'}; font-weight:bold'>${messaggio}</p>`;
+    successErrorBox.innerHTML = `<p style='font-weight:bold'>${messaggio}</p>`;
+    successErrorBox.classList.remove('success-color');
+    successErrorBox.classList.remove('error-color');
+    if(tipo === 'success'){
+        successErrorBox.classList.add('success-color')
+    }else{
+        successErrorBox.classList.add('error-color')
+    }
 
     successErrorBox.classList.remove('hidden');
     successErrorBox.style.display = 'block';

@@ -105,7 +105,29 @@ button {
     color: #667eea;
     margin: 5px 0;
 }
+.pagination-btn {
+    align-items: center;
+    padding: 8px 12px;
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
 
+.pagination-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.pagination-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
 
 #success-error-box {
     position: fixed;
@@ -123,4 +145,56 @@ button {
 .hidden {
     display: none;
     opacity: 0;
+}
+.success-color {
+    background-color: rgba(40, 167, 69, 0.9); 
+}
+.error-color {
+    background-color: rgba(220, 53, 69, 0.9); 
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px;;
+}
+
+#checkout {
+    text-align: center;
+    border-top: 2px solid #eee;
+}
+
+#total-cart {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+}
+
+#checkout button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#checkout button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+#Carrello-button, #Home-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 24px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+#Carrello-button:hover, #Home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
 }

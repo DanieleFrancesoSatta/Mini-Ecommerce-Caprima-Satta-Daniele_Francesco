@@ -12,7 +12,6 @@ class Database {
         $db   = getenv('DB_NAME');
         $user = getenv('DB_USER');
         $pass = getenv('DB_PASS');
-
     
 
         $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";

@@ -187,21 +187,27 @@ async function aggiungi_al_carrello(productId) {
         const data = await response.json();
         if (response.ok) {
             console.log("Prodotto aggiunto al carrello:", data);
-            mostra_messaggio('success',"Prodotto aggiunto al carrello!", 3000);
+            mostra_messaggio('success',"Prodotto aggiunto al carrello!", 2000);
             
         } else {
             console.error('Errore nell\'aggiunta al carrello: ' + data.error);
-            mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.error, 3000);
+            mostra_messaggio('error','Errore nell\'aggiunta al carrello: ' + data.error, 2000);
         }
     } catch (error) {
         console.error("Errore carrello:", error);
-        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 3000);
+        mostra_messaggio('error','Errore di rete o del server durante l\'aggiunta al carrello.', 2000);
     }
 }
 
 async function mostra_messaggio(tipo,messaggio, millisecondi) {
     const successErrorBox = document.getElementById('success-error-box');
-    successErrorBox.innerHTML = `<p style='color:${tipo === 'success' ? 'green' : 'red'}; font-weight:bold'>${messaggio}</p>`;
+    successErrorBox.innerHTML = `<p style='font-weight:bold'>${messaggio}</p>`;
+
+    if(tipo === 'success'){
+        successErrorBox.classList.add('success-color')
+    }else{
+        successErrorBox.classList.add('error-color')
+    }
 
     successErrorBox.classList.remove('hidden');
     successErrorBox.style.display = 'block';

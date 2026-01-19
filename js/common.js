@@ -1,4 +1,5 @@
 async function logout() {
     localStorage.removeItem('user');
-    window.location.href = '../Login/login.html';
+    localStorage.clear();
+    window.location.href = '../logout.php';
 }
