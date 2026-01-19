@@ -93,7 +93,7 @@ async function handleLogin(event) {
         
         if (response.ok) {
             console.log("Login riuscito:", data);
-            window.location.href = '../Home/home.html';
+            window.location.href = 'Home/home.html';
 
         } else {
             mostra_messaggio('error', data.error, 1000);
@@ -145,7 +145,7 @@ async function handleRegistrati(event) {
         if (response.ok) {
             console.log("Registrazione avvenuta con successo:", data);
             
-            window.location.href = '../Home/home.html?success=Registrazione avvenuta con successo';
+            window.location.href = '/Home/home.html?success=Registrazione avvenuta con successo';
 
         } else {
             console.log("Errore nella registrazione:", data.error);
