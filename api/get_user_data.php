@@ -1,4 +1,5 @@
 <?php
+session_save_path('/tmp');
 session_start();
 
 header("Content-Type: application/json; charset=UTF-8");

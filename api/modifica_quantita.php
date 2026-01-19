@@ -25,6 +25,8 @@ if (!isset($data->id_prodotto) || !isset($data->nuova_quantita)) {
     echo json_encode(["error" => "Dati incompleti."]);
     exit();
 }
+
+session_save_path('/tmp');
 session_start();
 $id_utente = $_SESSION['id_utente'];
 $id_prodotto = $data->id_prodotto;

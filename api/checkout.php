@@ -18,7 +18,7 @@ try {
     echo json_encode(["error" => "Errore DB: " . $e->getMessage()]);
     exit();
 }
-
+session_save_path('/tmp');
 session_start(); 
 $id_utente=$_SESSION['id_utente'];
 

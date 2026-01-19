@@ -59,6 +59,7 @@ try {
             "id" => $db->lastInsertId()
         ];
         http_response_code(200);
+        session_save_path('/tmp');
         session_start();
         $_SESSION['id_utente'] = $user['id'];
         $_SESSION['nome_utente'] = $user['utente'];

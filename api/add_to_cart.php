@@ -25,6 +25,7 @@ if (!isset($data->id_prodotto)) {
     echo json_encode(["error" => "Dati mancanti: id_prodotto"]);
     exit();
 }
+session_save_path('/tmp');
 session_start();
 $id_utente = $_SESSION['id_utente'];
 
