@@ -12,6 +12,6 @@
     }
 
 
-    header('Location: ./Login/login.html?success='. urlencode('Logout effettuato con successo'));
+    header('Location: /Login/login.html?success='. urlencode('Logout effettuato con successo'));
     exit();
 ?>
