@@ -52,7 +52,7 @@ Per avviare il progetto basta cliccare sul seguente link : [E-commerce Caprima](
 ##  Struttura del Progetto
 
 ```text
-├── api/                    # Endpoint PHP per le chiamate AJAX
+├── api/                    # Endpoint PHP
 │   ├── add_to_cart.php     # Aggiunge prodotti al carrello
 │   ├── check_login.php     # Verifica credenziali utente
 │   ├── checkout.php        # Finalizza l'ordine
