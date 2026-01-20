@@ -1,6 +1,6 @@
 # Mini E-Commerce Caprima
 
-Un'applicazione web e-commerce completa, sviluppata con **PHP nativo**, **JavaScript (Vanilla)** e **MySQL**.
+Un'applicazione web e-commerce, sviluppata con **PHP nativo**, **JavaScript (Vanilla)** e **MySQL**.
 
 Il progetto include funzionalità essenziali come autenticazione utenti, gestione del carrello, filtraggio prodotti e checkout simulato.
 
@@ -22,11 +22,10 @@ Il progetto include funzionalità essenziali come autenticazione utenti, gestion
 
 ### Carrello e Checkout
 * **Gestione Carrello:** Aggiunta prodotti, modifica quantità (incremento/decremento) e rimozione articoli.
-* **Persistenza Dati:** Il carrello è salvato nel database, permettendo all'utente di ritrovare i prodotti anche cambiando dispositivo.
+* **Persistenza Dati:** Il carrello è salvato nel database.
 * **Checkout:** Simulazione del processo di acquisto con svuotamento del carrello.
 
 ## Stack Tecnologico
-
 * **Frontend:** HTML5, CSS3 (Responsive), JavaScript (Fetch API).
 * **Backend:** PHP (Nativo, senza framework).
 * **Database:** MySQL hostato su Aiven.
@@ -47,7 +46,7 @@ Se avessi avuto più tempo avrei:
 - **cercato di rendere più fluida la navigazione**
 
 ## Come avviare il progetto
-Per avviare il progetto basta cliccare sul seguente link : [E-commerce Caprima](https://mini-ecommerce-caprima-satta-daniel.vercel.app), una volta effettuato il login o l'eventualer registrazione è possibile accedere all'E-Commerce e quindi testare tutte le funzionalità elencate sopra.
+Per avviare il progetto cliccare sul seguente link : [E-commerce Caprima](https://mini-ecommerce-caprima-satta-daniel.vercel.app), una volta effettuato il login o l'eventuale registrazione è possibile accedere all'E-Commerce e quindi testare tutte le funzionalità elencate sopra.
 
 ##  Struttura del Progetto
 
