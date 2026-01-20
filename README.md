@@ -26,7 +26,7 @@ Il progetto include funzionalità essenziali come autenticazione utenti, gestion
 * **Checkout:** Simulazione del processo di acquisto con svuotamento del carrello.
 
 ## Stack Tecnologico
-* **Frontend:** HTML5, CSS3 (Responsive), JavaScript (Fetch API).
+* **Frontend:** HTML5, CSS3, JavaScript (Fetch API).
 * **Backend:** PHP (Nativo, senza framework).
 * **Database:** MySQL hostato su Aiven.
 * **Deployment:** deployato su Vercel
