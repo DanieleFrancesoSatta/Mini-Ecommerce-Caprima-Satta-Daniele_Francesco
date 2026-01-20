@@ -34,7 +34,7 @@ Il progetto include funzionalità essenziali come autenticazione utenti, gestion
 
 ## Struttura del Database
 Il database è strutturato in tre entità principali:
-![ER database](img/ER%20Caprima.svg)
+![ER database](img_README/ER%20Caprima.svg)
 
 - **UTENTI**: Memorizza le credenziali di accesso (`ID_UTENTE`, `NOME`, `PASSWORD`).
 - **PRODOTTI**: Catalogo degli articoli disponibili (`ID_PRODOTTO`, `NOME`, `PREZZO`, `DESCRIZIONE`, `CATEGORIA`).
