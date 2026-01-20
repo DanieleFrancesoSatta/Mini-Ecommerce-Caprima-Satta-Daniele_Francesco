@@ -71,5 +71,6 @@ Per avviare il progetto basta cliccare sul seguente link : [E-commerce Caprima](
 │   ├── cart.js             # Logica del carrello
 │   ├── login.js            # Gestione auth
 │   └── ...
+├── img_README/             #Contiente le immagine per il README
 ├── ca.pem                  # Certificato SSL per connessione DB sicuro
 └── vercel.json             # Configurazione per il deploy
