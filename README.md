@@ -1,7 +1,7 @@
 # Mini E-Commerce Caprima
 
 Un'applicazione web e-commerce, sviluppata con **PHP nativo**, **JavaScript (Vanilla)** e **MySQL**.
-
+Sviluppata per candidatura in **Caprima srl**
 Il progetto include funzionalità essenziali come autenticazione utenti, gestione del carrello, filtraggio prodotti e checkout simulato.
 
 ## Funzionalità Principali
